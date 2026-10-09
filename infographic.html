@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{width:1920px;height:1080px;background:#0d1117;color:#eef1f6;
+       font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+       display:flex;flex-direction:column;padding:48px 56px;}
+  header{display:flex;align-items:center;gap:36px;margin-bottom:34px;}
+  header img{width:150px;height:150px;border-radius:50%;border:4px solid #d9a441;object-fit:cover;}
+  header h1{font-size:74px;color:#f0c46c;letter-spacing:1px;}
+  header .sub{font-size:30px;color:#9aa6b8;margin-top:6px;}
+  .shifts{display:flex;gap:28px;margin-bottom:30px;}
+  .shift{flex:1;background:#161d27;border:2px solid #2b3546;border-radius:18px;padding:30px 34px;position:relative;}
+  .shift .sname{font-size:34px;font-weight:700;color:#f0c46c;}
+  .shift .crown{position:absolute;top:22px;right:26px;background:#d9a441;color:#141414;
+    font-size:19px;font-weight:800;padding:6px 18px;border-radius:24px;letter-spacing:1px;}
+  .shift .big{font-size:62px;font-weight:800;margin-top:14px;}
+  .shift .big small{font-size:28px;color:#9aa6b8;font-weight:400;}
+  .shift .lbl{font-size:22px;color:#9aa6b8;text-transform:uppercase;letter-spacing:2px;margin-top:2px;}
+  .shift .tot{margin-top:16px;font-size:30px;color:#eef1f6;}
+  .shift .tot b{color:#e06a5a;}
+  .bar{height:16px;background:#0a0e14;border-radius:10px;overflow:hidden;margin-top:14px;}
+  .bar div{height:100%;border-radius:10px;background:linear-gradient(90deg,#d9a441,#f0c46c);}
+  .bar.red div{background:linear-gradient(90deg,#c0392b,#e06a5a);}
+  .tops{display:flex;gap:28px;margin-bottom:30px;}
+  .topcard{flex:1;background:#161d27;border:2px solid #2b3546;border-radius:18px;padding:28px 34px;}
+  .topcard h3{font-size:30px;color:#f0c46c;margin-bottom:14px;}
+  .rank{display:flex;align-items:center;gap:18px;padding:11px 0;border-bottom:2px solid #2b3546;}
+  .rank:last-child{border-bottom:none;}
+  .medal{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:26px;flex-shrink:0;color:#141414;}
+  .m1{background:linear-gradient(135deg,#e6b93f,#b8860b);}
+  .m2{background:linear-gradient(135deg,#cfd6de,#8b95a3);}
+  .m3{background:linear-gradient(135deg,#d08a4e,#8c5426);}
+  .who{flex:1;}
+  .who .n{font-size:30px;font-weight:600;}
+  .who .s{font-size:21px;color:#9aa6b8;}
+  .hrs{font-size:34px;font-weight:800;color:#f0c46c;white-space:nowrap;}
+  .hrs small{font-size:20px;color:#9aa6b8;font-weight:400;}
+  .cats{background:#161d27;border:2px solid #2b3546;border-radius:18px;padding:26px 34px;flex:1;}
+  .cats h3{font-size:28px;color:#f0c46c;margin-bottom:16px;}
+  .chips{display:flex;flex-wrap:wrap;gap:16px;}
+  .chip{background:#1c2431;border:1px solid #2b3546;border-radius:12px;padding:12px 20px;font-size:23px;}
+  .chip b{color:#f0c46c;}
+  .chip .l{color:#9aa6b8;font-size:20px;}
+</style>
+</head>
+<body>
+  <header>
+    <img src="../site/assets/logo.png" alt="PHFR Training &amp; Safety Division">
+    <div>
+      <h1>PHFR Shift Training Summary</h1>
+      <div class="sub">Palm Harbor Fire Rescue &mdash; Training &amp; Safety Division &nbsp;&bull;&nbsp; Jan 1 &ndash; Oct 8, 2026</div>
+    </div>
+  </header>
+
+  <div class="shifts">
+    <div class="shift">
+      <div class="sname">A Shift</div>
+      <div class="big">2,257.60 <small>hrs</small></div>
+      <div class="lbl">Company Training</div>
+      <div class="bar"><div style="width:88%"></div></div>
+      <div class="tot">Total all categories: <b>4,436.00 hrs</b></div>
+      <div class="bar red"><div style="width:93%"></div></div>
+    </div>
+    <div class="shift">
+      <div class="sname">B Shift</div><div class="crown">MOST COMPANY</div>
+      <div class="big">2,591.74 <small>hrs</small></div>
+      <div class="lbl">Company Training</div>
+      <div class="bar"><div style="width:100%"></div></div>
+      <div class="tot">Total all categories: <b>4,705.48 hrs</b></div>
+      <div class="bar red"><div style="width:98%"></div></div>
+    </div>
+    <div class="shift">
+      <div class="sname">C Shift</div><div class="crown">MOST TOTAL</div>
+      <div class="big">2,450.75 <small>hrs</small></div>
+      <div class="lbl">Company Training</div>
+      <div class="bar"><div style="width:95%"></div></div>
+      <div class="tot">Total all categories: <b>4,794.13 hrs</b></div>
+      <div class="bar red"><div style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <div class="tops">
+    <div class="topcard">
+      <h3>Top 3 &mdash; Company Training</h3>
+      <div class="rank"><div class="medal m1">1</div><div class="who"><div class="n">Robert Krayer</div><div class="s">C Shift</div></div><div class="hrs">250.34 <small>hrs</small></div></div>
+      <div class="rank"><div class="medal m2">2</div><div class="who"><div class="n">Cihan Catalbas</div><div class="s">A Shift</div></div><div class="hrs">178.79 <small>hrs</small></div></div>
+      <div class="rank"><div class="medal m3">3</div><div class="who"><div class="n">Liam Harvey</div><div class="s">A Shift</div></div><div class="hrs">166.18 <small>hrs</small></div></div>
+    </div>
+    <div class="topcard">
+      <h3>Top 3 &mdash; Total Training Hours</h3>
+      <div class="rank"><div class="medal m1">1</div><div class="who"><div class="n">Robert Krayer</div><div class="s">C Shift</div></div><div class="hrs">350.34 <small>hrs</small></div></div>
+      <div class="rank"><div class="medal m2">2</div><div class="who"><div class="n">Justin Barker</div><div class="s">A Shift</div></div><div class="hrs">334.42 <small>hrs</small></div></div>
+      <div class="rank"><div class="medal m3">3</div><div class="who"><div class="n">Gianluca Petrone</div><div class="s">C Shift</div></div><div class="hrs">309.19 <small>hrs</small></div></div>
+    </div>
+  </div>
+
+  <div class="cats">
+    <h3>Category Leaders</h3>
+    <div class="chips">
+      <div class="chip"><b>Company Training</b> &mdash; Robert Krayer <span class="l">250.34 hrs</span></div>
+      <div class="chip"><b>Facility Training</b> &mdash; Gianluca Petrone <span class="l">97.00 hrs</span></div>
+      <div class="chip"><b>Officer Training</b> &mdash; Scott Arntz <span class="l">98.25 hrs</span></div>
+      <div class="chip"><b>Driver/Operator</b> &mdash; Adam Abad <span class="l">107.00 hrs</span></div>
+      <div class="chip"><b>Hazmat</b> &mdash; Justin Barker <span class="l">89.05 hrs</span></div>
+      <div class="chip"><b>Recruit Training</b> &mdash; Cihan Catalbas <span class="l">27.50 hrs</span></div>
+    </div>
+  </div>
+</body>
+</html>
