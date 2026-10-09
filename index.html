@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHFR Shift Training Summary</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161d27; --panel2:#1c2431; --line:#2b3546;
+    --gold:#d9a441; --gold-soft:#f0c46c; --red:#c0392b; --red-soft:#e06a5a;
+    --text:#eef1f6; --muted:#9aa6b8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text); font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif; line-height:1.5;}
+  .wrap{max-width:1100px; margin:0 auto; padding:24px 18px 60px;}
+  header{display:flex; gap:22px; align-items:center; padding:26px 26px; background:linear-gradient(135deg,#10151d 0%,#1a2230 100%); border:1px solid var(--line); border-radius:14px; margin-bottom:26px;}
+  header img{width:118px; height:118px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; flex-shrink:0;}
+  header h1{font-size:2rem; letter-spacing:.5px; color:var(--gold-soft);}
+  header .sub{color:var(--muted); font-size:.95rem; margin-top:6px;}
+  h2{font-size:1.25rem; color:var(--gold-soft); margin:30px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--gold); display:inline-block;}
+  .dept-strip{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
+  .dept{flex:1; min-width:200px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .dept .lbl{font-size:.8rem; text-transform:uppercase; letter-spacing:1.2px; color:var(--muted);}
+  .dept .val{font-size:1.9rem; font-weight:700; color:var(--gold-soft); margin-top:4px;}
+  .dept .val small{font-size:.95rem; font-weight:400; color:var(--muted);}
+  .shifts{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;}
+  .shift{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px;}
+  .shift h3{font-size:1.15rem; color:var(--gold-soft); margin-bottom:12px; display:flex; align-items:center; gap:10px;}
+  .shift h3 .badge{background:var(--gold); color:#141414; font-size:.75rem; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:.5px;}
+  .metric{margin:12px 0;}
+  .metric .row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;}
+  .metric .name{font-size:.9rem; color:var(--muted);}
+  .metric .num{font-size:1.25rem; font-weight:700;}
+  .metric .num small{font-size:.85rem; color:var(--muted); font-weight:400;}
+  .bar{height:10px; background:#0a0e14; border-radius:6px; overflow:hidden;}
+  .bar > div{height:100%; border-radius:6px; background:linear-gradient(90deg,var(--gold),var(--gold-soft));}
+  .bar.red > div{background:linear-gradient(90deg,var(--red),var(--red-soft));}
+  .tops{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;}
+  .topcard{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px;}
+  .topcard h3{font-size:1.05rem; color:var(--gold-soft); margin-bottom:12px;}
+  .rank{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--line);}
+  .rank:last-child{border-bottom:none;}
+  .medal{width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem; flex-shrink:0;}
+  .m1{background:linear-gradient(135deg,#e6b93f,#b8860b); color:#141414;}
+  .m2{background:linear-gradient(135deg,#cfd6de,#8b95a3); color:#141414;}
+  .m3{background:linear-gradient(135deg,#d08a4e,#8c5426); color:#141414;}
+  .who{flex:1;}
+  .who .n{font-weight:600;}
+  .who .s{font-size:.8rem; color:var(--muted);}
+  .hrs{font-size:1.15rem; font-weight:700; color:var(--gold-soft); white-space:nowrap;}
+  .hrs small{font-size:.8rem; color:var(--muted); font-weight:400;}
+  table{width:100%; border-collapse:collapse; background:var(--panel); border-radius:12px; overflow:hidden; border:1px solid var(--line); font-size:.95rem;}
+  thead th{background:var(--panel2); color:var(--gold-soft); text-align:left; padding:12px 14px; font-size:.8rem; text-transform:uppercase; letter-spacing:1px;}
+  tbody td{padding:12px 14px; border-top:1px solid var(--line); vertical-align:top;}
+  tbody tr:hover{background:rgba(217,164,65,.05);}
+  td.cat{font-weight:600;}
+  td .best{font-weight:600;}
+  td .bs{font-size:.82rem; color:var(--muted);}
+  td .tval{font-weight:700; color:var(--gold-soft); white-space:nowrap;}
+  .zero{color:var(--muted); font-style:italic;}
+  footer{margin-top:34px; color:var(--muted); font-size:.85rem; text-align:center; padding-top:18px; border-top:1px solid var(--line);}
+  @media (max-width:640px){
+    header{flex-direction:column; text-align:center;}
+    header h1{font-size:1.5rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="assets/logo.png" alt="Palm Harbor Fire Rescue Training &amp; Safety Division logo">
+    <div>
+      <h1>PHFR Shift Training Summary</h1>
+      <div class="sub">Palm Harbor Fire Rescue &mdash; Training &amp; Safety Division<br>
+      ISO Monthly Training Tracker &bull; January 1 &ndash; October 8, 2026</div>
+    </div>
+  </header>
+
+  <h2>Shift Breakdown</h2>
+  <div class="dept-strip" id="dept"></div>
+  <div class="shifts" id="shifts"></div>
+
+  <h2>Top Performers</h2>
+  <div class="tops">
+    <div class="topcard">
+      <h3>Top 3 &mdash; Company Training</h3>
+      <div id="topCompany"></div>
+    </div>
+    <div class="topcard">
+      <h3>Top 3 &mdash; Total Training Hours</h3>
+      <div id="topTotal"></div>
+    </div>
+  </div>
+
+  <h2>Category Totals &amp; Leaders</h2>
+  <table>
+    <thead>
+      <tr><th>Training Category</th><th>Department Total</th><th>Most Training &mdash; Employee</th></tr>
+    </thead>
+    <tbody id="cats"></tbody>
+  </table>
+
+  <footer>
+    Source: ISO Monthly Training Tracker, Completions &ndash; Aggregated (run 10/8/2026).<br>
+    Categories are those tagged on the tracker: company training, facility training, facilities training, driver/operator training, hazardous materials, officer training, recruit training.
+  </footer>
+</div>
+
+<script>
+const data = {
+  shifts: [
+    {name:"A Shift", company:2257.60, total:4436.00},
+    {name:"B Shift", company:2591.74, total:4705.48},
+    {name:"C Shift", company:2450.75, total:4794.13}
+  ],
+  topCompany: [
+    {name:"Robert Krayer", shift:"C Shift", hours:250.34},
+    {name:"Cihan Catalbas", shift:"A Shift", hours:178.79},
+    {name:"Liam Harvey", shift:"A Shift", hours:166.18}
+  ],
+  topTotal: [
+    {name:"Robert Krayer", shift:"C Shift", hours:350.34},
+    {name:"Justin Barker", shift:"A Shift", hours:334.42},
+    {name:"Gianluca Petrone", shift:"C Shift", hours:309.19}
+  ],
+  categories: [
+    {cat:"company training", total:7300.09, best:"Robert Krayer", bshift:"C Shift", bhours:250.34},
+    {cat:"facility training", total:2378.25, best:"Gianluca Petrone", bshift:"C Shift", bhours:97.00},
+    {cat:"officer training", total:1707.98, best:"Scott Arntz", bshift:"A Shift", bhours:98.25},
+    {cat:"driver/operator training", total:1537.65, best:"Adam Abad", bshift:"C Shift", bhours:107.00},
+    {cat:"hazardous materials", total:888.31, best:"Justin Barker", bshift:"A Shift", bhours:89.05},
+    {cat:"recruit training", total:123.33, best:"Cihan Catalbas", bshift:"A Shift", bhours:27.50},
+    {cat:"facilities training", total:0.00, best:null, bshift:null, bhours:0.00}
+  ]
+};
+
+const fmt = n => n.toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2});
+
+// Department strip
+const deptCompany = data.shifts.reduce((s,x)=>s+x.company,0);
+const deptTotal = data.shifts.reduce((s,x)=>s+x.total,0);
+document.getElementById("dept").innerHTML =
+  '<div class="dept"><div class="lbl">Department Company Training</div><div class="val">'+fmt(deptCompany)+' <small>hrs</small></div></div>' +
+  '<div class="dept"><div class="lbl">Department Total Training</div><div class="val">'+fmt(deptTotal)+' <small>hrs</small></div></div>';
+
+// Shift cards
+const maxTotal = Math.max(...data.shifts.map(s=>s.total));
+document.getElementById("shifts").innerHTML = data.shifts.map((s,i)=>`
+  <div class="shift">
+    <h3>${s.name} ${i===2?'<span class="badge">MOST TOTAL</span>':''}${i===1?'<span class="badge">MOST COMPANY</span>':''}</h3>
+    <div class="metric">
+      <div class="row"><span class="name">Total Company Training</span><span class="num">${fmt(s.company)} <small>hrs</small></span></div>
+      <div class="bar"><div style="width:${(s.company/maxTotal*100).toFixed(1)}%"></div></div>
+    </div>
+    <div class="metric">
+      <div class="row"><span class="name">Total All-Category Training</span><span class="num">${fmt(s.total)} <small>hrs</small></span></div>
+      <div class="bar red"><div style="width:${(s.total/maxTotal*100).toFixed(1)}%"></div></div>
+    </div>
+  </div>`).join("");
+
+// Top performers
+const medal = i => i===0?"m1":i===1?"m2":"m3";
+const rankRow = (p,i) => `
+  <div class="rank">
+    <div class="medal ${medal(i)}">${i+1}</div>
+    <div class="who"><div class="n">${p.name}</div><div class="s">${p.shift}</div></div>
+    <div class="hrs">${fmt(p.hours)} <small>hrs</small></div>
+  </div>`;
+document.getElementById("topCompany").innerHTML = data.topCompany.map(rankRow).join("");
+document.getElementById("topTotal").innerHTML = data.topTotal.map(rankRow).join("");
+
+// Category table
+document.getElementById("cats").innerHTML = data.categories.map(c=>`
+  <tr>
+    <td class="cat">${c.cat}</td>
+    <td class="tval">${fmt(c.total)} hrs</td>
+    <td>${c.best
+      ? `<span class="best">${c.best}</span> <span class="bs">(${c.bshift})</span><br><span class="bs">${fmt(c.bhours)} hrs</span>`
+      : `<span class="zero">No training recorded</span>`}</td>
+  </tr>`).join("");
+</script>
+</body>
+</html>
